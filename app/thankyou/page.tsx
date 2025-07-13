@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+export const dynamic = "force-dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { jsPDF } from "jspdf";
+import { useEffect, useState, useCallback } from "react";
 
 export default function ThankYouPage() {
   const router = useRouter();
