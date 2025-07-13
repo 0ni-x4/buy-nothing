@@ -58,13 +58,19 @@ export default function ThankYouContent() {
   useEffect(() => {
     if (sessionId && !authCode) {
       fetch(`/api/session?session_id=${sessionId}`)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) {
+            router.replace("/");
+            return null;
+          }
+          return res.json();
+        })
         .then(data => {
-          if (data.name) setBuyer(data.name);
+          if (data && data.name) setBuyer(data.name);
         })
         .finally(() => setLoading(false));
     }
-  }, [sessionId, authCode]);
+  }, [sessionId, authCode, router]);
 
   useEffect(() => {
     if (!confettiFired.current && !loading && sessionId) {
