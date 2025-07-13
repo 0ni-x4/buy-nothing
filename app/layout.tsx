@@ -7,7 +7,7 @@ const manrope = Manrope({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Buy Nothing",
-  description: "A novelty digital experience",
+  description: "Pay $10 to receive absolutely nothing, for the memes.",
     generator: 'klastra.ai'
 }
 
@@ -21,13 +21,13 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta property="og:title" content="Buy Nothing" />
-        <meta property="og:description" content="A novelty digital experience. Pay $10 to receive absolutely nothing." />
+        <meta property="og:description" content="Pay $10 to receive absolutely nothing." />
         <meta property="og:image" content="/og-image.png" />
         <meta property="og:image:alt" content="Buy Nothing" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Buy Nothing" />
-        <meta name="twitter:description" content="A novelty digital experience. Pay $10 to receive absolutely nothing." />
+        <meta name="twitter:description" content="Pay $10 to receive absolutely nothing." />
         <meta name="twitter:image" content="/og-image.png" />
         <meta name="twitter:image:alt" content="Buy Nothing" />
       </head>
