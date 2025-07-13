@@ -18,6 +18,9 @@ export default function TermsPage() {
             This is a novelty digital experience. When you pay $10, you receive nothing in return — no product, no
             service, no entitlement. This is intentional.
           </p>
+          <p className="mb-4">
+            Something <span className="italic">may</span> happen after you pay. It might be nothing. It might be absurd. That's part of the experience.
+          </p>
           <p className="mb-6">
             You're supporting a creative project that exists purely for entertainment and experimentation. If that
             doesn't make sense to you, don't purchase.

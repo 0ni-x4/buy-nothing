@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       custom_fields: [
         {
           key: "certificate_name",
-          label: { type: "custom", custom: "Name for Certificate" },
+          label: { type: "custom", custom: "Full Name for Certificate" },
           type: "text",
           optional: false,
         },
