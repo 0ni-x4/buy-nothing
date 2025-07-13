@@ -10,11 +10,7 @@ This site exists to prove a point:
 There’s no utility, no value, no secret reward.  
 Just a big white button that says "Buy Nothing – $10" and a thank-you page that confirms you gave money away voluntarily.
 
-It’s not a scam. It’s not satire. It’s just real.
-
-## 🎯 Goal
-
-Make $1,000+ selling absolutely nothing online, using UGC, TikTok virality, and word-of-mouth.
+It’s not a scam. It’s not satire. It’s just a stupid social experiment.
 
 ## 💡 Features
 
@@ -23,15 +19,6 @@ Make $1,000+ selling absolutely nothing online, using UGC, TikTok virality, and 
 - Confetti celebration
 - Printable “Certificate of Nothing”
 - Terms & Policies to stay legally safe
-
-## 🚫 What It’s Not
-
-- No refunds  
-- No random prizes  
-- No NFTs  
-- No fake scarcity  
-- No astrology, fortune-telling, or spiritual bullshit  
-- Just clean, intentional, digital absurdity.
 
 ## 🔐 Legal
 
