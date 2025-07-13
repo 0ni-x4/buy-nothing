@@ -26,7 +26,7 @@ export default function TermsPage() {
           <h2 className="text-xl font-semibold mb-4">Refund Policy</h2>
           <p className="mb-4">All purchases are final. We do not offer refunds unless required by law.</p>
           <p className="mb-6">
-            If you believe there was an error or unauthorized charge, contact us at [your@email.com].
+            If you believe there was an error or unauthorized charge, contact us at support@klastra.ai.
           </p>
 
           <h2 className="text-xl font-semibold mb-4">Privacy</h2>
