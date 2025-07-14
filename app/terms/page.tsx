@@ -1,6 +1,27 @@
+"use client";
 import Link from "next/link"
+import { useEffect, useRef } from "react";
+import posthog from "../instrumentation-client";
 
 export default function TermsPage() {
+  const startTimeRef = useRef<number | null>(null);
+  useEffect(() => {
+    posthog.capture("terms_page_viewed", {
+      timestamp: new Date().toISOString(),
+      url: window.location.href,
+    });
+    startTimeRef.current = Date.now();
+    return () => {
+      if (startTimeRef.current) {
+        const duration = (Date.now() - startTimeRef.current) / 1000;
+        posthog.capture("terms_page_duration", {
+          duration_seconds: duration,
+          url: window.location.href,
+        });
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white p-4">
       <div className="max-w-2xl mx-auto py-12">
@@ -35,6 +56,9 @@ export default function TermsPage() {
           <h2 className="text-xl font-semibold mb-4">Privacy</h2>
           <p className="mb-4">
             We collect your email address at checkout to send you a receipt and confirm your transaction. That's it.
+          </p>
+          <p className="mb-4">
+            We also track anonymous usage data (such as site visits, button clicks, and page interactions) using PostHog analytics. This data is collected solely to improve the website experience and is never sold, shared, or used for marketing purposes. All analytics are fully anonymized and GDPR compliant.
           </p>
           <p className="mb-6">We do not use your data for marketing. We do not sell or share it with anyone.</p>
 

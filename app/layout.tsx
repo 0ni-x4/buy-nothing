@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Manrope } from "next/font/google"
 import "./globals.css"
+// @ts-ignore
+import ClientLayout from "./ClientLayout";
 
 const manrope = Manrope({ subsets: ["latin"] })
 
@@ -31,7 +33,9 @@ export default function RootLayout({
         <meta name="twitter:image" content="/og-image.png" />
         <meta name="twitter:image:alt" content="Buy Nothing" />
       </head>
-      <body className={manrope.className}>{children}</body>
+      <body className={manrope.className}>
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   )
 }

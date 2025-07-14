@@ -5,6 +5,7 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import confetti from "canvas-confetti";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import posthog from "../instrumentation-client";
 
 export default function ThankYouContent() {
   const router = useRouter();
@@ -18,20 +19,19 @@ export default function ThankYouContent() {
 
   // On mount: if no sessionId in URL, check localStorage
   useEffect(() => {
+    let foundSessionId = urlSessionId;
+    let foundAuthCode = null;
     if (!urlSessionId) {
       const stored = localStorage.getItem("thankyou-certificate");
       if (stored) {
         try {
           const { sessionId: storedSessionId, authCode: storedAuthCode } = JSON.parse(stored);
           if (storedSessionId) {
-            setSessionId(storedSessionId);
-            if (storedAuthCode) setAuthCode(storedAuthCode);
-            setLoading(false);
-            return;
+            foundSessionId = storedSessionId;
+            foundAuthCode = storedAuthCode || null;
           }
         } catch {}
       }
-      router.replace("/");
     } else {
       // Store sessionId immediately if not already stored
       const stored = localStorage.getItem("thankyou-certificate");
@@ -52,11 +52,18 @@ export default function ThankYouContent() {
         } catch {}
       }
     }
+    if (foundSessionId) {
+      setSessionId(foundSessionId);
+      if (foundAuthCode) setAuthCode(foundAuthCode);
+    } else {
+      router.replace("/");
+    }
   }, [urlSessionId, router]);
 
-  // Fetch buyer name if sessionId is present and not from localStorage
+  // Always verify sessionId if present
   useEffect(() => {
-    if (sessionId && !authCode) {
+    if (sessionId) {
+      setLoading(true);
       fetch(`/api/session?session_id=${sessionId}`)
         .then(res => {
           if (!res.ok) {
@@ -66,12 +73,21 @@ export default function ThankYouContent() {
           return res.json();
         })
         .then(data => {
-          if (data && data.name) setBuyer(data.name);
+          if (data && data.name) {
+            setBuyer(data.name);
+            // Track thank you page visit only after valid session
+            posthog.capture("thankyou_page_viewed", {
+              sessionId,
+              buyer: data.name,
+              timestamp: new Date().toISOString(),
+            });
+          }
         })
         .finally(() => setLoading(false));
     }
-  }, [sessionId, authCode, router]);
+  }, [sessionId, router]);
 
+  // Remove thankyou_page_viewed from confetti effect
   useEffect(() => {
     if (!confettiFired.current && !loading && sessionId) {
       confettiFired.current = true;
@@ -158,6 +174,12 @@ export default function ThankYouContent() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code, buyer, date })
+    });
+    posthog.capture("certificate_downloaded", {
+      sessionId,
+      buyer,
+      code: authCode || code,
+      timestamp: new Date().toISOString(),
     });
   }, [buyer, sessionId, authCode]);
 
