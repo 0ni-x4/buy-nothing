@@ -10,6 +10,7 @@ export default function TermsPage() {
       timestamp: new Date().toISOString(),
       url: window.location.href,
     });
+    
     startTimeRef.current = Date.now();
     return () => {
       if (startTimeRef.current) {
